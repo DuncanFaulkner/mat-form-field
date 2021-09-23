@@ -1,0 +1,26 @@
+mat-card {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  width: 300px;
+  height: 102px;
+}
+
+mat-radio-button {
+  margin-right: 10px;
+}
+
+.mat-form-field-required-marker {
+  color: yellow;
+}
+
+.mat-focused .mat-form-field-required-marker {
+  color: pink;
+}
+
+.test {
+  height: 200px;
+  width: 200px;
+  color: white;
+  background-color: red;
+}
