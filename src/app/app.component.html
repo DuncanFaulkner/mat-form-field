@@ -195,7 +195,9 @@
       </mat-card>
     </div>
   </div>
+
   <hr />
+
   <h1>Hint Messages and Labels</h1>
   <div fxFlexLayout="row">
     <div fxFlex="400px">
@@ -206,11 +208,9 @@
         <mat-card-subtitle>
         </mat-card-subtitle>
         <mat-card-content>
-          <mat-form-field appearance="legacy">
+          <mat-form-field appearance="legacy" hintLabel="This is a hintLabel message">
             <mat-label>Legacy</mat-label>
             <input placeholder="Placeholder/Floating label" type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -222,10 +222,8 @@
         <mat-card-content>
           <mat-form-field appearance="standard">
             <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+            <input type="text" matInput>
+            <mat-hint>Left aligned mat-hint message</mat-hint>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -239,9 +237,8 @@
         <mat-card-content>
           <mat-form-field appearance="fill">
             <mat-label>Floating Label</mat-label>
-            <input type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
+            <input type="text" matInput>
+            <mat-hint align="end">Right aligned mat-hint message</mat-hint>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -253,10 +250,7 @@
         <mat-card-content>
           <mat-form-field appearance="outline">
             <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+            <input type="text" matInput>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -264,8 +258,7 @@
   </div>
 
   <hr />
-
-  <h1>Error messages</h1>
+  <h1>Hint message Character Count</h1>
   <div fxFlexLayout="row">
     <div fxFlex="400px">
       <mat-card>
@@ -276,59 +269,73 @@
         </mat-card-subtitle>
         <mat-card-content>
           <mat-form-field appearance="legacy">
-            <mat-label>Legacy</mat-label>
-            <input placeholder="Placeholder/Floating label" type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>
-          Standard
-        </mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-        <mat-card-content>
-          <mat-form-field appearance="standard">
-            <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+            <mat-label>Description</mat-label>
+            <input placeholder="Enter a description" type="text" #count matInput>
+            <mat-hint align="end">{{count.value?.length || 0}}/250</mat-hint>
+            <!-- INK is a solution for founders who want to win at content marketing. We use proprietary AI to analyze the competition for your topic, and to help you create optimized content faster with state of the art AI generation. -->
           </mat-form-field>
         </mat-card-content>
       </mat-card>
     </div>
     <div fxFlex="400px">
-      <mat-card>
+
+    </div>
+  </div>
+  <hr />
+  <h1>Chip List</h1>
+  <div fxFlexLayout="row">
+    <div fxFlex="400px">
+      <mat-card style="height: 120px;">
         <mat-card-title>
           Fill
         </mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-subtitle>
+        </mat-card-subtitle>
         <mat-card-content>
-          <mat-form-field appearance="fill">
-            <mat-label>Floating Label</mat-label>
-            <input type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
+          <mat-form-field appearance="standard">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let keyword of keywords" [selected]="keyword" [value]="keyword"
+                (removed)="removeKeyword(keyword)">
+                {{keyword}}</mat-chip>
+              <input placeholder="New keyword..." (matChipInputTokenEnd)="addKeywordFromInput($event)"
+                [matChipInputFor]="chipList">
+            </mat-chip-list>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
-      <mat-card>
-        <mat-card-title>
-          Outline
-        </mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-        <mat-card-content>
-          <mat-form-field appearance="outline">
-            <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+    </div>
+    <div fxFlex="400px">
+
+    </div>
+  </div>
+  <hr />
+
+  <h1>Error messages</h1>
+  <div fxFlexLayout="row">
+    <div fxFlex="400px">
+      <form [formGroup]="errors">
+        <mat-card>
+          <mat-card-title>
+            Legacy
+          </mat-card-title>
+          <mat-card-subtitle>
+          </mat-card-subtitle>
+          <mat-card-content>
+            <mat-form-field appearance="legacy">
+              <mat-label>Error Messages</mat-label>
+              <input placeholder="Enter a email address" formControlName="email" type="text" matInput required>
+            </mat-form-field>
+            <mat-error *ngIf="errors.controls['email'].hasError('required') && errors.controls['email'].touched">
+              <span>Email is a required field</span>
+            </mat-error>
+            <mat-error *ngIf="errors.controls['email'].hasError('pattern') && errors.controls['email'].touched">
+              <span>Email address is not valid</span>
+            </mat-error>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+    <div fxFlex="400px">
     </div>
   </div>
   <hr />
@@ -338,31 +345,13 @@
     <div fxFlex="400px">
       <mat-card>
         <mat-card-title>
-          Legacy
-        </mat-card-title>
-        <mat-card-subtitle>
-        </mat-card-subtitle>
-        <mat-card-content>
-          <mat-form-field appearance="legacy">
-            <mat-label>Legacy</mat-label>
-            <input placeholder="Placeholder/Floating label" type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>
           Standard
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
         <mat-card-content>
-          <mat-form-field appearance="standard">
-            <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+          <mat-form-field color="primary" appearance="standard">
+            <mat-label>Primary</mat-label>
+            <input type="text" matInput>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -374,11 +363,9 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
         <mat-card-content>
-          <mat-form-field appearance="fill">
-            <mat-label>Floating Label</mat-label>
-            <input type="text" matInput required>
-            <span matPrefix>prepend</span>
-            <span matSuffix>append</span>
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Accent</mat-label>
+            <input type="text" matInput>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -388,56 +375,12 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
         <mat-card-content>
-          <mat-form-field appearance="outline">
-            <mat-label>Floating Label</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput required>
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+          <mat-form-field color="warn" appearance="outline">
+            <mat-label>Warn</mat-label>
+            <input type="text" matInput>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </form>
-
-
-<!--
-    <mat-form-field appearance="legacy">
-      <input placeholder="Legacy" required type="text" matInput>
-    </mat-form-field>
-    <mat-form-field appearance="standard">
-      <mat-label>Standard</mat-label>
-      <input type="text" required matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Fill</mat-label>
-      <input type="text" placeholder="Fill" required matInput>
-      <mat-error *ngIf="ctrl.invalid">Field is required.</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Outline</mat-label>
-      <input type="text" matInput>
-    </mat-form-field>
- -->
-
-<!--
-   <mat-form-field appearance="standard">
-      <mat-label>Standard</mat-label>
-      <input #input type="text" matInput>
-      <mat-hint>You have entered {{input.value?.length || 0}}/25</mat-hint>
-    </mat-form-field>
-
-  <input [type]="hide ? 'password' : 'text'" matInput>
-      <button mat-icon-button matSuffix (click)="hide = !hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-
-    <mat-select required>
-            <mat-option>-- None --</mat-option>
-            <mat-option value="option1">Users</mat-option>
-          </mat-select>
-<mat-label>
-  <mat-icon>groups</mat-icon> Fill
-</mat-label>
-    -->
